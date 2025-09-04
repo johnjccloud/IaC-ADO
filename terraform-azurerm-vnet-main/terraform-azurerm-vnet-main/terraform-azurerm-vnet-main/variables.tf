@@ -7,7 +7,7 @@ variable "resource_group_name" {
 
 variable "vnet_name" {
   type        = string
-  default     = "jccloudvnet1"
+  default     = "jccloudvnet2"
   description = "Name of the vnet to create"
 }
 
