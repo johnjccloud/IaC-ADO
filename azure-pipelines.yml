@@ -9,6 +9,8 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
+variables:
+  azureServiceConnection: 'ARMConnection'  
 
 stages:
   - stage: Plan
@@ -20,7 +22,7 @@ stages:
           # Step 1: Initialize and Plan Terraform
           - task: AzureCLI@2
             inputs:
-              connectedServiceNameARM: $(azureServiceConnection)  # The service connection defined in your pipeline
+              azureSubscription: $(azureServiceConnection)  # The service connection defined in your pipeline
               scriptType: bash
               scriptLocation: inlineScript
               inlineScript: |
@@ -34,7 +36,7 @@ stages:
           # Step 2: Deploy
           - task: AzureCLI@2
             inputs:
-              connectedServiceNameARM: $(azureServiceConnection)  # The service connection defined in your pipeline
+              azureSubscription: $(azureServiceConnection)  # The service connection defined in your pipeline
               scriptType: bash
               scriptLocation: inlineScript
               inlineScript: |
