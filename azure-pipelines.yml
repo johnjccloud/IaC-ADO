@@ -9,9 +9,6 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
-variables:
-  azureServiceConnection: 'ARMConnection'  
-
 stages:
   - stage: Plan
     displayName: 'Terraform Plan'
