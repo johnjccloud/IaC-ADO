@@ -7,9 +7,6 @@ trigger:
   branches:
     include:
     - main
-  paths:
-    include:
-    - terraform-azurerm-vnet-main/terraform-azurerm-vnet-main
 
 stages:
 
