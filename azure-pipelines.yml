@@ -62,6 +62,17 @@ stages:
     - task: TerraformTask@5
       inputs:
         provider: 'azurerm'
+        command: 'init'
+        workingDirectory: 'terraform-azurerm-vnet-main/terraform-azurerm-vnet-main/terraform-azurerm-vnet-main'
+        commandOptions: '-upgrade'
+        backendServiceArm: 'ARMConnection'
+        backendAzureRmResourceGroupName: 'rg-devops-001'
+        backendAzureRmStorageAccountName: 'jccloudtfstate'
+        backendAzureRmContainerName: 'tfstatefile'
+        backendAzureRmKey: 'app.terraform.tfstate'
+    - task: TerraformTask@5
+      inputs:
+        provider: 'azurerm'
         command: 'plan'
         workingDirectory: 'terraform-azurerm-vnet-main/terraform-azurerm-vnet-main/terraform-azurerm-vnet-main'
         environmentServiceNameAzureRM: 'ARMConnection'
@@ -75,6 +86,20 @@ stages:
     pool:
       vmImage: ubuntu-latest
     steps:
+    - task: TerraformInstaller@1
+      inputs:
+        terraformVersion: 'latest'
+    - task: TerraformTask@5
+      inputs:
+        provider: 'azurerm'
+        command: 'init'
+        workingDirectory: 'terraform-azurerm-vnet-main/terraform-azurerm-vnet-main/terraform-azurerm-vnet-main'
+        commandOptions: '-upgrade'
+        backendServiceArm: 'ARMConnection'
+        backendAzureRmResourceGroupName: 'rg-devops-001'
+        backendAzureRmStorageAccountName: 'jccloudtfstate'
+        backendAzureRmContainerName: 'tfstatefile'
+        backendAzureRmKey: 'app.terraform.tfstate'
     - task: TerraformTask@5
       inputs:
         provider: 'azurerm'
