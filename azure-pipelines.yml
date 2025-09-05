@@ -4,16 +4,29 @@
 # https://aka.ms/yaml
 
 trigger:
-- main
+  branches:
+    include:
+    - main
+  paths:
+    include:
+    - terraform-azurerm-vnet-main/terraform-azurerm-vnet-main
 
-pool:
-  vmImage: ubuntu-latest
-
-steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
-
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+stages:
+- stage: Init
+  displayName: Init
+  jobs:
+  - job: Init
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+    - task: TerraformTask@5
+      inputs:
+        provider: 'azurerm'
+        command: 'init'
+        workingDirectory: 'terraform-azurerm-vnet-main/terraform-azurerm-vnet-main'
+        commandOptions: '-upgrade'
+        backendServiceArm: 'ARMConnection'
+        backendAzureRmResourceGroupName: 'rg-devops-001'
+        backendAzureRmStorageAccountName: 'jccloudtfstate'
+        backendAzureRmContainerName: 'tfstatefile'
+        backendAzureRmKey: 'app.terraform.tfstate'
