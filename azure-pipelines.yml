@@ -12,6 +12,19 @@ trigger:
     - terraform-azurerm-vnet-main/terraform-azurerm-vnet-main
 
 stages:
+
+stages:
+- stage: Validate
+  displayName: Init
+  jobs:
+  - job: Init
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+    - task: TerraformInstaller@2
+      inputs:
+        terraformVersion: 'latest'
+
 - stage: Init
   displayName: Init
   jobs:
