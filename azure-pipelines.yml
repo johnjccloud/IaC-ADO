@@ -12,8 +12,6 @@ trigger:
     - terraform-azurerm-vnet-main/terraform-azurerm-vnet-main
 
 stages:
-
-stages:
 - stage: Validate
   displayName: Init
   jobs:
