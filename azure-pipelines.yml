@@ -39,7 +39,7 @@ stages:
       inputs:
         provider: 'azurerm'
         command: 'init'
-        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform-azurerm-vnet-main'
+        workingDirectory: 'terraform-azurerm-vnet-main/terraform-azurerm-vnet-main/terraform-azurerm-vnet-main'
         commandOptions: '-upgrade'
         backendServiceArm: 'ARMConnection'
         backendAzureRmResourceGroupName: 'rg-devops-001'
@@ -63,7 +63,7 @@ stages:
       inputs:
         provider: 'azurerm'
         command: 'plan'
-        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform-azurerm-vnet-main'
+        workingDirectory: 'terraform-azurerm-vnet-main/terraform-azurerm-vnet-main/terraform-azurerm-vnet-main'
         environmentServiceNameAzureRM: 'ARMConnection'
 
 # Terraform Apply
@@ -79,7 +79,7 @@ stages:
       inputs:
         provider: 'azurerm'
         command: 'apply'
-        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform-azurerm-vnet-main'
+        workingDirectory: 'terraform-azurerm-vnet-main/terraform-azurerm-vnet-main/terraform-azurerm-vnet-main'
         commandOptions: '-auto-approve'
         environmentServiceNameAzureRM: 'ARMConnection'
 
