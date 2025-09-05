@@ -12,6 +12,9 @@ trigger:
     - terraform-azurerm-vnet-main/terraform-azurerm-vnet-main
 
 stages:
+
+# Terraform Validate
+
 - stage: Validate
   displayName: Validate
   jobs:
@@ -23,8 +26,10 @@ stages:
       inputs:
         terraformVersion: 'latest'
 
+# Terraform Initialise
+
 - stage: Init
-  displayName: Init
+  displayName: Initialise
   jobs:
   - job: Init
     pool:
@@ -44,4 +49,40 @@ stages:
         backendAzureRmStorageAccountName: 'jccloudtfstate'
         backendAzureRmContainerName: 'tfstatefile'
         backendAzureRmKey: 'app.terraform.tfstate'
-    
+
+# Terraform Plan
+
+- stage: Plan
+  displayName: Plan
+  jobs:
+  - job: Plan
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+    - task: TerraformInstaller@1
+      inputs:
+        terraformVersion: 'latest'
+    - task: TerraformTask@5
+      inputs:
+        provider: 'azurerm'
+        command: 'plan'
+        workingDirectory: 'terraform-azurerm-vnet-main/terraform-azurerm-vnet-main'
+        environmentServiceNameAzureRM: 'ARMConnection'
+
+# Terraform Apply
+
+- stage: Apply
+  displayName: Apply
+  jobs:
+  - job: Plan
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+    - task: TerraformTask@5
+      inputs:
+        provider: 'azurerm'
+        command: 'apply'
+        workingDirectory: 'terraform-azurerm-vnet-main/terraform-azurerm-vnet-main'
+        commandOptions: '-auto-approve'
+        environmentServiceNameAzureRM: 'ARMConnection'
+
