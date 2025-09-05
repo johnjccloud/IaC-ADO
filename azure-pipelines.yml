@@ -38,9 +38,10 @@ stages:
         provider: 'azurerm'
         command: 'init'
         workingDirectory: 'terraform-azurerm-vnet-main/terraform-azurerm-vnet-main'
-        commandOptions: '-upgrade'
+        commandOptions: 'init -upgrade'
         backendServiceArm: 'ARMConnection'
         backendAzureRmResourceGroupName: 'rg-devops-001'
         backendAzureRmStorageAccountName: 'jccloudtfstate'
         backendAzureRmContainerName: 'tfstatefile'
         backendAzureRmKey: 'app.terraform.tfstate'
+    
