@@ -13,9 +13,9 @@ trigger:
 
 stages:
 - stage: Validate
-  displayName: Init
+  displayName: Validate
   jobs:
-  - job: Init
+  - job: Validate
     pool:
       vmImage: ubuntu-latest
     steps:
